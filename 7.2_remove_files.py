@@ -17,6 +17,17 @@ extensions and file sizes to determine this.
 If you mess up and delete the wrong files, there is a folder named
 "backup" that contains an exact copy of the "little pics" folder and all
 its contents so that you can copy these contents back and try again.
+
+
+Actually, you should recreate directories structure to get this work:
+
+/Users/srg/practice_files/little pics
+.
+├── better\ not\ delete\ me.txt
+├── look\ in\ here\ too
+│   └── definitely\ has\ to\ go.jpg
+├── save\ me\ please.jpg
+└── to\ be\ deleted.jpg
 '''
 
 import os
