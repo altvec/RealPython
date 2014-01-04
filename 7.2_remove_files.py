@@ -18,3 +18,14 @@ If you mess up and delete the wrong files, there is a folder named
 "backup" that contains an exact copy of the "little pics" folder and all
 its contents so that you can copy these contents back and try again.
 '''
+
+import os
+
+_Path = "/Users/srg/practice_files/little pics"
+
+for currentFolder, subfolders, fileNames in os.walk(_Path):
+    for fileName in fileNames:
+        fileFullPath = os.path.join(currentFolder, fileName)
+        if fileName.lower().endswith(".jpg"):
+            if os.path.getsize(fileFullPath) < 2000:
+                os.remove(fileFullPath)
