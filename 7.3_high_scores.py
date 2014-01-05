@@ -24,3 +24,12 @@ an ordered list of high scores, which should match this output:
     red 12
     tom123 26
 '''
+
+import os, csv
+
+_Path = "/Users/srg/practice_files"
+
+with open(os.path.join(_Path, "scores.csv"), "rb") as _File:
+    _FileReader = csv.reader(_File)
+    for row in _FileReader:
+        print row
