@@ -29,7 +29,14 @@ import os, csv
 
 _Path = "/Users/srg/practice_files"
 
+top_scores = {}
 with open(os.path.join(_Path, "scores.csv"), "rb") as _File:
     _FileReader = csv.reader(_File)
     for row in _FileReader:
-        print row
+        top_scores[row[0]] = row[1]
+
+_sorted = sorted(top_scores.keys())
+
+for i in _sorted:
+    print i, top_scores[i]
+
