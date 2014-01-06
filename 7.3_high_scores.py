@@ -32,11 +32,15 @@ _Path = "/Users/srg/practice_files"
 top_scores = {}
 with open(os.path.join(_Path, "scores.csv"), "rb") as _File:
     _FileReader = csv.reader(_File)
-    for row in _FileReader:
-        top_scores[row[0]] = row[1]
+    for k, v in _FileReader:
+        v = int(v)
+        if k in top_scores:
+            if v > top_scores[k]:
+                top_scores[k] = v
+        else:
+            top_scores[k] = v
 
 _sorted = sorted(top_scores.keys())
 
 for i in _sorted:
     print i, top_scores[i]
-
