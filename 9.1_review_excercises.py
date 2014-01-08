@@ -28,8 +28,10 @@ c.execute("DROP TABLE IF EXISTS Roster")
 c.execute("CREATE TABLE Roster(Name TEXT, Species TEXT, IQ INT)")
 c.executemany("INSERT INTO Roster VALUES(?, ?, ?)", defaultData)
 
-# print table
-c.execute("SELECT * FROM Roster")
+# update species for Korben Dallas and print humans IQs
+c.execute("UPDATE Roster SET Species=? WHERE Name=?",
+    ('Human', 'Korben Dallas'))
+c.execute("SELECT Name, IQ FROM Roster WHERE Species='Human'")
 for row in c.fetchall():
     print row
 
