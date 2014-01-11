@@ -44,6 +44,7 @@ You can print as much as you like from inside a function, and the
 function will continue running until you reach its end.
 '''
 
+
 def invest(amount, rate, time):
     '''
     The function prints out the amount of the investment for every year
@@ -55,6 +56,7 @@ def invest(amount, rate, time):
         amount = amount * (1 + rate)
         print "year {}: ${}".format(year, amount)
     print
+
 
 invest(100, .05, 8)
 invest(2000, .025, 5)

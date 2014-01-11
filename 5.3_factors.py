@@ -26,10 +26,12 @@ Also keep in mind that raw_input() returns a string, so you will need to
 convert this value to an integer before using it in any calculations.
 '''
 
+
 def factor(num):
     for i in xrange(1, num + 1):
         if num % i == 0:
             print "{} is a divisor of {}".format(i, num)
+
 
 num = int(raw_input("Enter an integer: "))
 factor(num)

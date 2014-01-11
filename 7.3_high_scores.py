@@ -25,7 +25,8 @@ an ordered list of high scores, which should match this output:
     tom123 26
 '''
 
-import os, csv
+import os
+import csv
 
 _Path = "/Users/srg/practice_files"
 

@@ -76,6 +76,7 @@ preposition = ["against", "after", "into", "beneath", "upon", "for",
 adverb = ["curiously", "extravagantly", "tantalizingly",
           "furiously", "sensuously"]
 
+
 def makePoem():
     ''' create a randomly generated poem, returned as a multi-line string'''
     # Pull three nouns randomly
@@ -115,14 +116,15 @@ def makePoem():
     # Pull one adverb
     adv1 = choice(adverb)
 
-    if "aeiou".find(adj1[0]) != -1: # first letter is a vowel
+    if "aeiou".find(adj1[0]) != -1:  # first letter is a vowel
         article = "An"
     else:
         article = "A"
 
     # add lines to poem
     poem = "{} {} {}\n\n".format(article, adj1, n1)
-    poem = poem + "{} {} {} {} {} the {} {}\n".format(article, adj1, n1, v1, prep1, adj2, n2)
+    poem = poem + "{} {} {} {} {} the {} {}\n".format(article, adj1, n1,
+                                                      v1, prep1, adj2, n2)
     poem = poem + "{}, the {} {}\n".format(adv1, n1, v2)
     poem = poem + "the {} {} {} a {} {}".format(n2, v3, prep2, adj3, n3)
 
