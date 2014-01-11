@@ -12,3 +12,16 @@ pattern should be a "<" (i.e., the start of an HTML tag) or a newline
 character, and you should remove any extra spaces of newline characters
 from the resulting text
 '''
+
+import re
+from urllib2 import urlopen
+
+addr = "http://realpython.com/practice/dionysus.html"
+page = urlopen(addr)
+text = page.read()
+
+# using strings find() merthod
+for w in ["Name: ", "Favorite Color: "]:
+    w_start = text.find(w) + len(w)
+    w_end = text[w_start:].find("<")
+    print text[w_start:w_start+w_end].strip("\n")
