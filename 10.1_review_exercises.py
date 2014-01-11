@@ -25,3 +25,9 @@ for w in ["Name: ", "Favorite Color: "]:
     w_start = text.find(w) + len(w)
     w_end = text[w_start:].find("<")
     print text[w_start:w_start+w_end].strip("\n")
+
+# using re
+for w in ["Name: .*?[\n<]", "Favorite Color: .*?[\n<]"]:
+    matchResults = re.search(w, text)
+    result = re.sub(".*: ", "", matchResults.group())
+    print result.strip(" \n<")
