@@ -20,3 +20,6 @@ html_text = html_page.read()
 parsed_text = BeautifulSoup(html_text)
 
 print parsed_text
+
+for link in parsed_text.find_all("a"):
+    print link["href"]
