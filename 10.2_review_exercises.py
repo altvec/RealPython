@@ -10,3 +10,13 @@ by the "href" attribute of each tag
 to the file name, and display the text (without HTML tags) on each page
 using Beautiful Soup's get_text() method
 '''
+
+from bs4 import BeautifulSoup
+from urllib2 import urlopen
+
+addr = "http://www.realpython.com/practice/profiles.html"
+html_page = urlopen(addr)
+html_text = html_page.read()
+parsed_text = BeautifulSoup(html_text)
+
+print parsed_text
