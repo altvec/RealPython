@@ -19,7 +19,9 @@ html_page = urlopen(addr)
 html_text = html_page.read()
 parsed_text = BeautifulSoup(html_text)
 
-print parsed_text
-
 for link in parsed_text.find_all("a"):
-    print link["href"]
+    link_addr = addr[:-13] + link["href"]
+    link_page = urlopen(link_addr)
+    link_text = link_page.read()
+    parsed_link = BeautifulSoup(link_text)
+    print parsed_link.get_text().replace("\n\n\n", "")
