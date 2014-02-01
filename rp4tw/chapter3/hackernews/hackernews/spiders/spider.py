@@ -1,5 +1,5 @@
 from scrapy.spider import BaseSpider
-from scrapy.selector import HtmlXPathSelector
+from scrapy.selector import Selector
 from hackernews.items import HackernewsItem
 
 class MySpider(BaseSpider):
@@ -15,12 +15,15 @@ class MySpider(BaseSpider):
 
     # parses and returns the scraped data
     def parse(self, response):
-        hxs = HtmlXPathSelector(response)
-        titles = hxs.select('//td[@class="title"]')
+        sel = Selector(response)
+        # find all <td>'s where class = title
+        titles = sel.xpath('//td[@class="title"]')
         items = []
         for title in titles:
             item = HackernewsItem()
-            item["title"] = title.select("a/text()").extract()
-            item["url"] = title.select("a/@href").extract()
+            # find all <a>'s within each <td> that extracts the text
+            item["title"] = title.xpath("a/text()").extract()
+            # find all <a>'s within each <td> that extracts the url
+            item["url"] = title.xpath("a/@href").extract()
             items.append(item)
         return items
