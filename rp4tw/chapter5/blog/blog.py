@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, session, \
     flash, redirect, url_for, g
 import sqlite3
-import time
 from functools import wraps
 
 # Configuration
@@ -56,7 +55,7 @@ def login_required(test):
 @login_required
 def main():
     g.db = connect_db()
-    cur = g.db.execute('SELECT * FROM posts ORDER BY date_time DESC')
+    cur = g.db.execute('SELECT * FROM posts ORDER BY entry_date DESC')
     posts = [dict(date=row[0],
                   title=row[1],
                   post=row[2]) for row in cur.fetchall()]
@@ -67,7 +66,6 @@ def main():
 @app.route("/add", methods=["POST"])
 @login_required
 def add():
-    date = time.strftime("%x")
     title = request.form['title']
     post = request.form['post']
     if not title or not post:
@@ -75,10 +73,9 @@ def add():
         return redirect(url_for('main'))
     else:
         g.db = connect_db()
-        g.db.execute('INSERT INTO posts(date_time, title, post) VALUES(?,?,?)',
-                     [date,
-                      request.form['title'],
-                      request.form['post']])
+        g.db.execute('INSERT INTO posts(entry_date, title, post) \
+                      VALUES(date(),?,?)',
+                     [request.form['title'], request.form['post']])
         g.db.commit()
         g.db.close()
         flash("New entry was successfully posted.")
