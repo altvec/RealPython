@@ -56,12 +56,33 @@ def login_required(test):
 @login_required
 def main():
     g.db = connect_db()
-    cur = g.db.execute('SELECT * FROM posts')
+    cur = g.db.execute('SELECT * FROM posts ORDER BY date_time DESC')
     posts = [dict(date=row[0],
                   title=row[1],
                   post=row[2]) for row in cur.fetchall()]
     g.db.close()
     return render_template('main.html', posts=posts)
+
+
+@app.route("/add", methods=["POST"])
+@login_required
+def add():
+    date = time.strftime("%x")
+    title = request.form['title']
+    post = request.form['post']
+    if not title or not post:
+        flash("All field are required! Please try again.")
+        return redirect(url_for('main'))
+    else:
+        g.db = connect_db()
+        g.db.execute('INSERT INTO posts(date_time, title, post) VALUES(?,?,?)',
+                     [date,
+                      request.form['title'],
+                      request.form['post']])
+        g.db.commit()
+        g.db.close()
+        flash("New entry was successfully posted.")
+        return redirect(url_for('main'))
 
 if __name__ == "__main__":
     app.run(debug=True)
