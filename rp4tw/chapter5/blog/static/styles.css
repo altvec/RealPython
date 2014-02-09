@@ -1,0 +1,25 @@
+.container {
+    background: #bad7d4;
+    margin: 2em auto;
+    padding: .8em;
+    width: 30em;
+}
+
+.header {
+    padding: 1.5em 0;
+    width: 100%;
+    color: #22bdaf;
+    background: #3d3c3e;
+}
+
+.flash, .error {
+    background: #f14b6a;
+    color: #fff;
+    padding: .5em;
+}
+
+.post {
+    padding: 1em 0 1em 0;
+    margin: 1em 0 1em 0;
+    background: #f4f4f4;
+}
