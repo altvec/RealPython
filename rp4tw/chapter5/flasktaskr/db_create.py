@@ -1,19 +1,13 @@
-import sqlite3
+from app import db
+from app.models import FTasks
+from datetime import date
 
-# importing config variable from configuration file 'config.py'
-from config import DATABASE_PATH
+# Create the database and the db table
+db.create_all()
 
-with sqlite3.connect(DATABASE_PATH) as connection:
-    c = connection.cursor()
-    c.execute("""
-        CREATE TABLE tasks(task_id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL,
-            due_date TEXT NOT NULL,
-            priority INTEGER NOT NULL,
-            status INTEGER NOT NULL)""")
+# Insert data
+db.session.add(FTasks("Finish this tutorial", date(2013,3,13), 10, 1))
+db.session.add(FTasks("Finish my book", date(2013,3,13), 10, 1))
 
-    # insert dummy data
-    c.execute('INSERT INTO tasks (name, due_date, priority, status) \
-        VALUES("Finish this tutorial", "02/03/2013", 10, 1)')
-    c.execute('INSERT INTO tasks (name, due_date, priority, status) \
-        VALUES("Finish this book", "02/03/2013", 10, 1)')
+# Commit changes
+db.session.commit()
