@@ -4,8 +4,8 @@ from app import app, db
 from flask import Flask, flash, redirect, render_template, request, \
     session, url_for, g
 from functools import wraps
-from app.forms import AddTask
-from app.models import FTasks
+from app.forms import AddTask, RegisterForm, LoginForm
+from app.models import FTasks, User
 
 
 def login_required(test):
@@ -89,3 +89,21 @@ def delete_entry(task_id):
     db.session.commit()
     flash('The task was deleted.')
     return redirect(url_for('tasks'))
+
+
+# Registration
+@app.route('/register/', methods=['GET', 'POST'])
+def register():
+    error = None
+    form = RegisterForm(request.form, csrf_enabled=False)
+    if form.validate_on_submit():
+        new_user = User(
+            form.name.data,
+            form.email.data,
+            form.password.data,
+        )
+        db.session.add(new_user)
+        db.session.commit()
+        flash('Thanks for registering. Please login.')
+        return redirect(url_for('login'))
+    return render_template('register.html', form=form, error=error)

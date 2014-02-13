@@ -1,6 +1,25 @@
 from flask.ext.wtf import Form
-from wtforms.fields import TextField, DateField, IntegerField, SelectField
-from wtforms.validators import Required
+from wtforms.fields import TextField, DateField, IntegerField, SelectField, \
+    PasswordField
+from wtforms.validators import Required, EqualTo, Length
+
+
+class RegisterForm(Form):
+    name = TextField('Username',
+                     validators=[Required(), Length(min=6, max=25)])
+    email = TextField('Email',
+                      validators=[Required(), Length(min=6, max=60)])
+    password = PasswordField('Password',
+                             validators=[Required(), Length(min=6, max=40)])
+    confirm = PasswordField('Repeat Password',
+                            [Required(),
+                             EqualTo('password', message='Passwords must match')
+                            ])
+
+
+class LoginForm(Form):
+    name = TextField('Username', validators=[Required()])
+    password = PasswordField('Password', validators=[Required()])
 
 
 class AddTask(Form):

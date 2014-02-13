@@ -6,8 +6,8 @@ from datetime import date
 db.create_all()
 
 # Insert data
-db.session.add(FTasks("Finish this tutorial", date(2013,3,13), 10, 1))
-db.session.add(FTasks("Finish my book", date(2013,3,13), 10, 1))
+db.session.add(FTasks("Finish this tutorial", date(2013, 3, 13), 10, 1))
+db.session.add(FTasks("Finish my book", date(2013, 3, 13), 10, 1))
 
 # Commit changes
 db.session.commit()
