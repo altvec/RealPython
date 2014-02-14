@@ -26,17 +26,21 @@ def logout():
     return redirect(url_for('login'))
 
 
+# Login function
 @app.route('/', methods=['GET', 'POST'])
 def login():
     error = None
     if request.method == 'POST':
-        if (request.form['username'] != app.config['USERNAME'] or
-                request.form['password'] != app.config['PASSWORD']):
-            error = 'Invalid credentials. Please try again.'
+        u = User.query.filter_by(name=request.form['name'],
+                                 password=request.form['password']).first()
+        if u is None:
+            error = 'Invalid username or password'
         else:
             session['logged_in'] = True
+            flash('You are logged in. Go crazy!')
             return redirect(url_for('tasks'))
-    return render_template('login.html', error=error)
+    return render_template('login.html', form=LoginForm(request.form),
+                           error=error)
 
 
 # View tasks
