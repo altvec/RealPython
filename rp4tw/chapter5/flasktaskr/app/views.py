@@ -31,8 +31,7 @@ def logout():
 def login():
     error = None
     if request.method == 'POST':
-        u = User.query.filter_by(name=request.form['name'],
-                                 password=request.form['password']).first()
+        u = User.query.filter_by(name=request.form['name'], password=request.form['password']).first()
         if u is None:
             error = 'Invalid username or password'
         else:
@@ -65,6 +64,8 @@ def new_task():
             form.name.data,
             form.due_date.data,
             form.priority.data,
+            form.posted_date.data,
+            '1',
             '1'
         )
         db.session.add(new_task)
