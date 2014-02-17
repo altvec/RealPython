@@ -13,8 +13,9 @@ class RegisterForm(Form):
                              validators=[Required(), Length(min=5, max=40)])
     confirm = PasswordField('Repeat Password',
                             [Required(),
-                             EqualTo('password', message='Passwords must match')
-                            ])
+                             EqualTo('password',
+                                     message='Passwords must match')
+                             ])
 
 
 class LoginForm(Form):

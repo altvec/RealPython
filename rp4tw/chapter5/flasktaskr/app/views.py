@@ -1,8 +1,8 @@
 # Views controller
 
 from app import app, db
-from flask import Flask, flash, redirect, render_template, request, \
-    session, url_for, g
+from flask import flash, redirect, render_template, request, \
+    session, url_for
 from functools import wraps
 from app.forms import AddTask, RegisterForm, LoginForm
 from app.models import FTasks, User
@@ -19,9 +19,11 @@ def login_required(test):
     return wrap
 
 
+# Logout function
 @app.route('/logout/')
 def logout():
     session.pop('logged_in', None)
+    session.pop('user_id', None)
     flash("You are logged out. Bye. :(")
     return redirect(url_for('login'))
 
@@ -31,11 +33,13 @@ def logout():
 def login():
     error = None
     if request.method == 'POST':
-        u = User.query.filter_by(name=request.form['name'], password=request.form['password']).first()
+        u = User.query.filter_by(name=request.form['name'],
+                                 password=request.form['password']).first()
         if u is None:
             error = 'Invalid username or password'
         else:
             session['logged_in'] = True
+            session['user_id'] = u.user_id
             flash('You are logged in. Go crazy!')
             return redirect(url_for('tasks'))
     return render_template('login.html', form=LoginForm(request.form),
@@ -55,7 +59,7 @@ def tasks():
 
 
 # Add new task
-@app.route('/add/', methods=['POST'])
+@app.route('/add/', methods=['GET', 'POST'])
 @login_required
 def new_task():
     form = AddTask(request.form, csrf_enabled=False)
@@ -66,7 +70,7 @@ def new_task():
             form.priority.data,
             form.posted_date.data,
             '1',
-            '1'
+            session['user_id']
         )
         db.session.add(new_task)
         db.session.commit()
