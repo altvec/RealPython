@@ -1,26 +1,62 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <title>Welcome to FlaskTaskr!</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <meta name="author" content="">
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/static/css/custom.css">
+        <!--
         <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+        -->
+        <style>
+            body { padding-top: 65px; }
+        </style>
     </head>
     <body>
-        <div class="page">
-            {% for message in get_flashed_messages() %}
-            <div class="flash">
-                {{ message }}
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="/">FlaskTaskr</a>
+                    <div class="nav-collapse">
+                        <ul class="nav"></ul>
+                        <ul class="nav pull-right">
+                            {% if not session.logged_in %}
+                            <li><a href="/register">Signup</a></li>
+                            {% else %}
+                            <li><a href="/logout">Logout</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <br/>
-            {% endfor %}
-
-            {% if error %}
-            <div class="error">
-                <strong>Error:</strong>{{ error }}
-            </div>
-            {% endif %}
-
-            {% block content %}
-            {% endblock %}
         </div>
+        <div class="new">
+            <div class="content">
+                {% for message in get_flashed_messages() %}
+                <div class="flash">{{ message }}</div>
+                <br/>
+                {% endfor %}
+                {% if error %}
+                <p class="error"><strong>Error:</strong> {{ error }}</p>
+                {% endif %}
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+        <footer class="footer">
+            <hr>
+            <p>&copy; FlaskTaskr</p>
+        </footer>
+        <script src="http://code.jquery.com/jquery.js"></script>
+        <script src="/static/js/bootstrap.min.js"></script>
     </body>
 </html>

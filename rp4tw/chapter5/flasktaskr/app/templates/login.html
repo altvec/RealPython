@@ -1,13 +1,13 @@
 {% extends "template.html" %}
 {% block content %}
 <h1>Welcome to FlaskTaskr.</h1>
-<h3>Please login to access your account task list.</h3>
+<h3>Please login to access your task list.</h3>
 <form action="" method="post">
+    {{ form.name.label }} {{ form.name }}
+    {{ form.password.label }} {{ form.password }}
     <p>
-        {{ form.name.label }}: {{ form.name }}&nbsp;&nbsp;
-        {{ form.password.label }}: {{ form.password }}&nbsp;&nbsp;
-        <input type="submit" value="Submit">
+        <input type="submit" value="Submit" class="btn-primary">
     </p>
 </form>
-<p><em>Need an account?</em> <a href="/register">Sign up!</a></p>
+<p><em>Need an account?</em>&nbsp;<a href="/register">Sign up!</a></p>
 {% endblock %}
