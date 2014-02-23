@@ -1,5 +1,6 @@
-from flask.ext.wtf import Form, TextField, PasswordField, \
-    Required, EqualTo, Length
+from flask.ext.wtf import Form
+from wtforms.fields import TextField, PasswordField
+from wtforms.validators import Required, EqualTo, Length
 
 
 class RegisterForm(Form):
