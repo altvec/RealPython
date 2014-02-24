@@ -70,7 +70,7 @@
                 <td width="100px">{{ c.posted_date }}</td>
                 <td width="50px">{{ c.priority }}</td>
                 <td width="90px">{{ c.poster.name }}</td>
-                <td><a href="{{ url_for('tasks.delete_entry', task_id=o.task_id) }}">Delete</a></td>
+                <td><a href="{{ url_for('tasks.delete_entry', task_id=c.task_id) }}">Delete</a></td>
             </tr>
             {% endfor %}
         </table>

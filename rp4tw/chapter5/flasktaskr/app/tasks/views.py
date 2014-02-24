@@ -2,7 +2,7 @@ from app import db
 from flask import Blueprint, flash, redirect, render_template, \
     request, session, url_for
 from app.views import login_required, flash_errors
-from froms import AddTask
+from forms import AddTask
 from app.models import FTasks
 
 mod = Blueprint('tasks', __name__, url_prefix='/tasks',
@@ -38,7 +38,7 @@ def new_task():
         flash('New entry was successfully posted. Thanks!')
     else:
         flash_errors(form)
-    return redirect(url_for('tasks'))
+    return redirect(url_for('.tasks'))
 
 
 @mod.route('/complete/<int:task_id>/',)
@@ -48,7 +48,7 @@ def complete(task_id):
     db.session.query(FTasks).filter_by(task_id=new_id).update({"status": "0"})
     db.session.commit()
     flash('The task was marked as completed.')
-    return redirect(url_for('tasks'))
+    return redirect(url_for('.tasks'))
 
 
 @mod.route('/delete/<int:task_id>/',)
@@ -58,4 +58,4 @@ def delete_entry(task_id):
     db.session.query(FTasks).filter_by(task_id=new_id).delete()
     db.session.commit()
     flash('The task was deleted.')
-    return redirect(url_for('tasks'))
+    return redirect(url_for('.tasks'))

@@ -8,6 +8,7 @@
     <meta name="author" content="">
     <meta charset="utf-8">
     <link href="{{ url_for('users.static', filename='bootstrap.css') }} " rel="stylesheet">
+    <link href="{{ url_for('users.static', filename='custom.css') }}" rel="stylesheet">
     <style>
         body {
             padding-top: 65px;
@@ -26,31 +27,30 @@
                 </a>
                 <a class="brand" href="/">FlaskTaskr</a>
                 <div class="nav-collapse">
-                    <ul class="nav">
-                    </ul>
+                    <ul class="nav"></ul>
                     <ul class="nav pull-right">
-                    {% if not session.logged_in %}
+                        {% if not session.logged_in %}
                         <li><a href="{{ url_for('users.register') }}">Signup</a></li>
-                    {% else %}
+                        {% else %}
                         <li><a href="{{ url_for('users.logout') }} ">Logout</a></li>
-                    {% endif %}
+                        {% endif %}
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="new">
-            <div class="content">
+    </div>
+    <div class="new">
+        <div class="content">
             {% for message in get_flashed_messages() %}
-                <div class="flash">
-                    {{ message }}
-                </div>
+            <div class="flash">
+                {{ message }}
+            </div>
             {% endfor %}
             {% if error %}
-                <p class="error"><strong>Error:</strong> {{ error }}</p>
+            <p class="error"><strong>Error:</strong> {{ error }}</p>
             {% endif %}
             {% block content %}
             {% endblock %}
-            </div>
         </div>
     </div>
     <footer class="footer">

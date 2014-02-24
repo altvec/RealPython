@@ -28,7 +28,7 @@ def login():
             error = 'Invalid username or password.'
         else:
             session['logged_in'] = True
-            session['user_id'] = u.id
+            session['user_id'] = u.user_id
             flash('You are logged in. Go crazy.')
             return redirect(url_for('tasks.tasks'))
     return render_template("users/login.html", form=LoginForm(request.form),
